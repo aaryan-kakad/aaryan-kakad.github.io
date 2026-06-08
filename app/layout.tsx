@@ -4,7 +4,6 @@ import "./globals.css";
 const title = "Aaryan Kakad";
 const description = "I am Aaryan, 19 - self taught ML guy, entrepreneur, fitness freak with a passion for financial markets and crypto.";
 const siteUrl = "https://aaryan-kakad.github.io";
-const googleAnalyticsId = "G-E41VNBFVWM";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -52,17 +51,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <head>
         <link rel="preload" href="/fonts/0xProtoNerdFont-Regular-ASCII.ttf" as="font" type="font/ttf" crossOrigin="anonymous" />
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`} />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', '${googleAnalyticsId}');
-`
-          }}
-        />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body suppressHydrationWarning>{children}</body>
