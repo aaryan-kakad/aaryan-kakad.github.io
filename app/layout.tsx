@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 const title = "Aaryan Kakad";
-const description = "Self-taught builder from Mumbai learning ML from scratch, reading papers physically, and using leverage to build what matters.";
+const description = "I am Aaryan, 19 - self taught ML guy, entrepreneur, fitness freak with a passion for financial markets and crypto.";
 const siteUrl = "https://aaryan-kakad.github.io";
 
 export const metadata: Metadata = {
