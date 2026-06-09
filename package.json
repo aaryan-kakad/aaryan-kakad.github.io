@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --hostname 127.0.0.1 --port 4237",
-    "build": "next build && node scripts/inject-google-tag.mjs",
+    "build": "next build",
     "start": "next start --hostname 127.0.0.1 --port 4237",
     "typecheck": "tsc --noEmit"
   },
