@@ -195,8 +195,18 @@ export const workItems: WorkItem[] = [
     linkLabel: "try demo"
   },
   {
-    id: "vex",
+    id: "kivarro",
     number: "04",
+    title: "Kivarro",
+    kind: "local inference workstation",
+    sentence: "An all-in-one desktop tool for running local models under your hand.",
+    detail: "Model registry, runtime profiles, hardware fit, chat, local API, RAG tests, benchmarks, logs. I wanted local inference to feel like a real workstation instead of a pile of scripts.",
+    image: "/media/project-kivarro.png",
+    href: "https://github.com/AKMessi/kivarro"
+  },
+  {
+    id: "vex",
+    number: "05",
     title: "Vex",
     kind: "terminal video agent",
     sentence: "A video tool where language can touch the timeline.",
@@ -206,7 +216,7 @@ export const workItems: WorkItem[] = [
   },
   {
     id: "smartie",
-    number: "05",
+    number: "06",
     title: "Smartie",
     kind: "screen recorder",
     sentence: "A recorder that understands demos are usually badly directed.",
@@ -215,8 +225,18 @@ export const workItems: WorkItem[] = [
     href: "https://github.com/AKMessi/smartie"
   },
   {
+    id: "ferrite",
+    number: "07",
+    title: "Ferrite",
+    kind: "rust inference internals",
+    sentence: "A tiny inference engine built to learn Rust and how LLMs work at the roots.",
+    detail: "GGUF parsing, tensors, quantization, tokenizer, sampler, KV cache, and forward passes. Not a product. A way to stop treating inference as a black box.",
+    image: "/media/project-ferrite.png",
+    href: "https://github.com/AKMessi/ferrite"
+  },
+  {
     id: "flash",
-    number: "06",
+    number: "08",
     title: "FlashAttention",
     kind: "paper implementation",
     sentence: "The paper clicked when memory became the villain.",
@@ -226,7 +246,7 @@ export const workItems: WorkItem[] = [
   },
   {
     id: "autograd",
-    number: "07",
+    number: "09",
     title: "tiny-autograd-rs",
     kind: "rust autodiff",
     sentence: "Backprop, small enough that the ugly parts cannot hide.",
@@ -236,7 +256,7 @@ export const workItems: WorkItem[] = [
   },
   {
     id: "heart",
-    number: "08",
+    number: "10",
     title: "Heart Disease Risk XGBoost Model",
     kind: "clinical risk",
     sentence: "A model that got better after the leakage stopped flattering it.",
@@ -582,6 +602,15 @@ export const galleryItems: GalleryItem[] = [
     poster: "/media/celebrity-doppelganger-poster.webp"
   },
   {
+    src: "/media/project-kivarro.png",
+    kind: "image",
+    title: "Kivarro",
+    caption: "local inference under control",
+    meta: "project proof",
+    story: "An all-in-one local inference workstation: model registry, profiles, hardware fit, chat, local API, RAG tests, benchmarks, and logs.",
+    alt: "Kivarro local inference workbench screenshot"
+  },
+  {
     src: "/media/project-vex.webp",
     kind: "image",
     title: "Vex",
@@ -598,6 +627,15 @@ export const galleryItems: GalleryItem[] = [
     meta: "project proof",
     story: "A recorder that makes demos feel directed instead of dead.",
     alt: "Smartie screen recorder interface screenshot"
+  },
+  {
+    src: "/media/project-ferrite.png",
+    kind: "image",
+    title: "Ferrite",
+    caption: "inference roots in rust",
+    meta: "project proof",
+    story: "A tiny inference engine built to learn Rust and the lower layers of LLMs: GGUF, tensors, quantization, tokenization, sampling, and cache state.",
+    alt: "Ferrite repository screenshot"
   },
   {
     src: "/media/project-flash.webp",
