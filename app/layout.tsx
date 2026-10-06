@@ -3,7 +3,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
 const title = "Aaryan Kakad";
-const description = "I am Aaryan, 19 - self taught ML guy, entrepreneur, fitness freak with a passion for financial markets and crypto.";
+const description = "Aaryan Kakad builds AI agents, local inference tools, and ML systems from scratch. Explore his projects and writing on agents, Rust, and model architectures.";
 const siteUrl = "https://aaryan-kakad.github.io";
 const googleAnalyticsId = "G-E41VNBFVWM";
 
@@ -45,7 +45,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     "@type": "Person",
     name: "Aaryan Kakad",
     url: siteUrl,
-    sameAs: ["https://github.com/AKMessi", "https://x.com/aaryan_kakad", "https://www.linkedin.com/in/aaryankakad/"],
+    sameAs: ["https://medium.com/@kakadaaryan10", "https://github.com/AKMessi", "https://x.com/aaryan_kakad", "https://www.linkedin.com/in/aaryankakad/"],
     knowsAbout: ["machine learning", "AI agents", "computer vision", "markets", "research papers", "systems"]
   };
 

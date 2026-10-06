@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">Pactrail — every change carries its evidence</title>
+  <desc id="desc">An execution diagram showing a task contract, isolated candidate edits, a verification receipt, human review, and explicit apply.</desc>
+  <rect width="1200" height="800" fill="#fff7c8"/>
+  <g fill="none" stroke="#111027" stroke-opacity=".08"><path d="M0 200H1200M0 400H1200M0 600H1200M200 0V800M400 0V800M600 0V800M800 0V800M1000 0V800"/></g>
+  <g font-family="monospace" fill="#111027">
+    <text x="72" y="100" font-size="20" letter-spacing="4">RUST / CODING-AGENT HARNESS</text>
+    <text x="68" y="208" font-size="96">Pactrail</text>
+    <text x="72" y="263" font-size="26">Every change carries its evidence.</text>
+    <rect x="72" y="332" width="1056" height="336" rx="8" fill="#111027"/>
+    <g fill="#fff7c8" font-size="21">
+      <text x="112" y="382" fill="#8dff7a">EXECUTION / CONCEPTUAL FLOW</text>
+      <text x="112" y="442">01  Task contract</text>
+      <text x="112" y="482">02  Isolated candidate edits</text>
+      <text x="112" y="522">03  Verification + evidence receipt</text>
+      <text x="112" y="562">04  Human review of diff + evidence</text>
+      <text x="112" y="602" fill="#8dff7a">05  Explicit apply to source workspace</text>
+    </g>
+    <text x="72" y="734" font-size="19">MODEL PORTABILITY / DURABLE TRACES / INSPECTABLE CHANGES</text>
+  </g>
+</svg>

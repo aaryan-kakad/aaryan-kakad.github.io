@@ -5,9 +5,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { galleryItems, nowEntries, storyBeats, trailImages, workItems, type GalleryItem, type WorkItem } from "@/data/site";
+import { articles, galleryItems, nowEntries, storyBeats, trailImages, workItems, type GalleryItem, type WorkItem } from "@/data/site";
 
-const navItems = ["story", "made", "moments", "now"];
+const navItems = ["story", "made", "writing", "moments", "now"];
 const konami = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
 const mediaTypeFor = (src: string) => (src.toLowerCase().endsWith(".mp4") ? "video/mp4" : "video/webm");
 const momentGroups = [
@@ -705,14 +705,14 @@ export function BrightBossSite() {
                 <span>{splitChars("KAKAD")}</span>
               </h1>
               <p className="hero-subline">
-                The lockdown taught me I could learn anything from the internet. Markets made me care about prediction. ML gave me leverage. Now I am building from that.
+                I build AI agents, local inference tools, and ML systems from scratch. I write about the mechanisms, bugs, and lessons along the way.
               </p>
               <div className="hero-actions">
-                <a ref={openStoryRef} href="#story" onClick={scrollTo("story")} className="magnetic primary-action" data-cursor="link">
-                  read my story
+                <a ref={openStoryRef} href="#made" onClick={scrollTo("made")} className="magnetic primary-action" data-cursor="link">
+                  explore projects
                 </a>
-                <a ref={openVoiceRef} href="https://youtube.com/@MachineLearningWithAaryan" target="_blank" rel="noreferrer" className="magnetic secondary-action" data-cursor="link">
-                  watch ML videos
+                <a ref={openVoiceRef} href="#writing" onClick={scrollTo("writing")} className="magnetic secondary-action" data-cursor="link">
+                  read my writing
                 </a>
               </div>
               <div className="hero-metrics" aria-label="quick signals">
@@ -832,6 +832,36 @@ export function BrightBossSite() {
             </div>
           </section>
 
+          <section id="writing" className="writing-section" aria-labelledby="writing-heading">
+            <div className="section-head">
+              <p className="eyebrow fade-line">writing / notes from the work</p>
+              <h2 id="writing-heading" className="word-reveal" aria-label="Understand it. Build it. Explain it.">
+                {splitWords("Understand it. Build it. Explain it.")}
+              </h2>
+              <p className="section-note fade-line">Architectures, agents, and the bugs between the idea and the implementation. Short summaries here. Full articles on Medium.</p>
+            </div>
+            <div className="writing-grid">
+              {articles.map((article, index) => (
+                <article className="writing-card" key={article.id}>
+                  <div className="writing-meta">
+                    <span>{article.topic}</span>
+                    <time dateTime={article.date}>{article.dateLabel}</time>
+                  </div>
+                  <div className="writing-card-body">
+                    <span className="writing-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                    {article.label ? <span className="writing-label">{article.label}</span> : null}
+                    <h3><a href={article.href} target="_blank" rel="noopener noreferrer">{article.title}</a></h3>
+                    <p>{article.summary}</p>
+                  </div>
+                  <a className="writing-read" href={article.href} target="_blank" rel="noopener noreferrer" aria-label={`Read ${article.title} on Medium (opens in a new tab)`}>
+                    <span>read on Medium</span><span aria-hidden="true">↗</span>
+                  </a>
+                </article>
+              ))}
+            </div>
+            <a className="writing-all" href="https://medium.com/@kakadaaryan10" target="_blank" rel="noopener noreferrer">all my writing on Medium <span aria-hidden="true">↗</span></a>
+          </section>
+
           <section id="moments" className="moments-section">
             <div className="section-head">
               <p className="eyebrow fade-line">moments</p>
@@ -885,7 +915,7 @@ export function BrightBossSite() {
 
           <section id="now" className="now-section">
             <div className="section-head">
-              <p className="eyebrow fade-line">now</p>
+              <p className="eyebrow fade-line">now / updated <time dateTime="2026-10-06">06 Oct 2026</time></p>
               <h2 className="word-reveal" aria-label="Current loop.">
                 {splitWords("Current loop.")}
               </h2>
@@ -909,6 +939,7 @@ export function BrightBossSite() {
             <div className="closing-links fade-line">
               <a ref={helloRef} href="mailto:aaryankakad1@gmail.com" className="magnetic primary-action">Email me</a>
               <a href="https://github.com/AKMessi" target="_blank" rel="noreferrer">GitHub</a>
+              <a href="https://medium.com/@kakadaaryan10" target="_blank" rel="noopener noreferrer">Medium</a>
               <a href="https://x.com/aaryan_kakad" target="_blank" rel="noreferrer">X</a>
               <a href="https://youtube.com/@MachineLearningWithAaryan" target="_blank" rel="noreferrer">ML YouTube</a>
               <a href="https://youtube.com/@AaryanKakad" target="_blank" rel="noreferrer">Personal YouTube</a>
@@ -925,17 +956,23 @@ export function BrightBossSite() {
       </div>
 
       {detail ? (
-        <div className="modal-shell" role="dialog" aria-modal="true">
+        <div className="modal-shell" role="dialog" aria-modal="true" aria-labelledby="project-detail-title">
           <article className="detail-panel">
             <button type="button" className="close-button" onClick={() => setDetail(null)}>close</button>
             <div className="detail-image media-frame">
-              <Image src={detail.image} alt={`${detail.title} screenshot`} fill sizes="(max-width: 900px) 100vw, 55vw" />
+              <Image src={detail.image} alt={detail.imageAlt ?? `${detail.title} screenshot`} fill sizes="(max-width: 900px) 100vw, 55vw" />
             </div>
             <div className="detail-copy">
               <p className="eyebrow">{detail.kind}</p>
-              <h2>{detail.title}</h2>
+              <h2 id="project-detail-title">{detail.title}</h2>
               <p>{detail.sentence}</p>
               <p>{detail.detail}</p>
+              {detail.relatedArticleId ? articles.filter((article) => article.id === detail.relatedArticleId).map((article) => (
+                <div className="project-reading" key={article.id}>
+                  <p className="eyebrow">notes behind the build</p>
+                  <a href={article.href} target="_blank" rel="noopener noreferrer">{article.title} <span aria-hidden="true">↗</span></a>
+                </div>
+              )) : null}
               {detail.href ? <a href={detail.href} target="_blank" rel="noreferrer">{detail.linkLabel ?? "open repo"}</a> : null}
             </div>
           </article>

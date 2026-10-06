@@ -11,6 +11,19 @@ npm run dev
 
 Open `http://127.0.0.1:4237`.
 
+## Projects and writing
+
+Project entries, article summaries, original Medium links, and the Now section
+live in `data/site.ts`. Writing is a curated selection, ordered by publication
+date; update the summaries and dates there when adding articles. The displayed
+Now update date lives in `components/BrightBossSite.tsx`.
+
+Pactrail's project image is a conceptual execution diagram created for this
+site, not a product screenshot. NPU-SR's image is the project's published QNN
+output of its MIT test card, sourced from
+`https://github.com/AKMessi/npu-sr/blob/main/examples/npu_sr_2x.png`.
+Its performance description is scoped to the published single-laptop trial.
+
 ## Verify
 
 ```bash

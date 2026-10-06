@@ -8,6 +8,8 @@ export type WorkItem = {
   image: string;
   href?: string;
   linkLabel?: string;
+  imageAlt?: string;
+  relatedArticleId?: string;
 };
 
 export type StoryBeat = {
@@ -161,7 +163,102 @@ export const storyBeats: StoryBeat[] = [
   }
 ];
 
+export type ArticleItem = {
+  id: string;
+  title: string;
+  topic: string;
+  date: string;
+  dateLabel: string;
+  summary: string;
+  href: string;
+  label?: string;
+};
+
+export const articles: ArticleItem[] = [
+  {
+    id: "frontier",
+    title: "pace the frontier? no.",
+    topic: "open AI / opinion",
+    date: "2026-09-22",
+    dateLabel: "22 Sep 2026",
+    label: "opinion",
+    summary: "My take on who gets to own the AI frontier, why closed labs worry about open models, and why access to personal intelligence should belong to everyone.",
+    href: "https://medium.com/@kakadaaryan10/pace-the-frontier-no-98a736112591"
+  },
+  {
+    id: "deepseek",
+    title: "deepseek v4.1 flash’s alien architecture explained.",
+    topic: "model architecture",
+    date: "2026-09-10",
+    dateLabel: "10 Sep 2026",
+    summary: "A walkthrough of compressed attention, shared caches, and the different work a model does when reading versus generating. The thread running through it: memory is a central constraint for long agent runs.",
+    href: "https://medium.com/@kakadaaryan10/890-bytes-is-what-deepseek-v4-1-flash-needs-to-store-one-token-cf4a9643ae60"
+  },
+  {
+    id: "reasoning",
+    title: "you don’t need a bigger model. you need the same model to think longer.",
+    topic: "reasoning / inference",
+    date: "2026-09-09",
+    dateLabel: "09 Sep 2026",
+    summary: "How inference compute can improve reasoning without adding parameters. I unpack chains of thought, voting across answers, search, and the verification problems that decide whether extra thinking actually helps.",
+    href: "https://medium.com/@kakadaaryan10/you-dont-need-a-bigger-model-you-need-the-same-model-to-think-longer-17a725800134"
+  },
+  {
+    id: "harness",
+    title: "what is a harness?",
+    topic: "agents / systems",
+    date: "2026-09-01",
+    dateLabel: "01 Sep 2026",
+    label: "behind Pactrail",
+    summary: "The machinery that lets a model act: tools, context, memory, verification, recovery, and sandboxing. A practical explanation of the agent loop and why the system around the model matters for reliability.",
+    href: "https://medium.com/@kakadaaryan10/what-is-an-agentic-harness-de78b99e432b"
+  },
+  {
+    id: "training",
+    title: "how an llm is trained from scratch",
+    topic: "ML foundations",
+    date: "2026-08-24",
+    dateLabel: "24 Aug 2026",
+    label: "start here",
+    summary: "From cleaning data and training a tokenizer to pretraining, scaling, and fitting the run across GPUs. A tour of the training pipeline and the engineering decisions behind a language model.",
+    href: "https://medium.com/@kakadaaryan10/how-an-llm-is-trained-from-scratch-50dfd8b5337b"
+  },
+  {
+    id: "ferrite-debugging",
+    title: "I Built Qwen 3.5 From Scratch in Rust. It Silently Broke.",
+    topic: "Rust / build notes",
+    date: "2026-08-17",
+    dateLabel: "17 Aug 2026",
+    label: "inside Ferrite",
+    summary: "Building a hybrid LLM inference engine exposed bugs that compiled cleanly but ruined the numbers. Notes from tracing near-zero logits, checking intermediate values, and learning why a running pipeline is only the beginning.",
+    href: "https://medium.com/@kakadaaryan10/i-built-qwen-3-5-from-scratch-in-rust-it-silently-broke-6772ebf6c5d7"
+  }
+];
+
 export const workItems: WorkItem[] = [
+  {
+    id: "pactrail",
+    number: "01",
+    title: "Pactrail",
+    kind: "Rust coding-agent harness",
+    sentence: "Every change carries its evidence.",
+    detail: "A model-agnostic coding-agent harness built in Rust. Tasks become contracts, edits stay in isolated transactions, and verification produces inspectable receipts. Review the diff and evidence before applying a change. Durable traces, recovery checkpoints, and a local browser interface make the whole run visible.",
+    image: "/media/project-pactrail.svg",
+    imageAlt: "Pactrail execution diagram: task contract, isolated edits, verification receipt, human review, and explicit apply",
+    href: "https://github.com/AKMessi/pactrail",
+    relatedArticleId: "harness"
+  },
+  {
+    id: "npu-sr",
+    number: "02",
+    title: "NPU-SR",
+    kind: "local hardware / vision",
+    sentence: "Give the laptop’s NPU real work: enhance images and video locally.",
+    detail: "2× super-resolution and luminance denoising on Qualcomm Hexagon NPUs. The published Snapdragon X Plus trial reports 52.74 FPS median processing throughput for 540p to 1080p video across three runs, with strict NPU execution and hardware codecs. Results describe one tested laptop and declared settings; the repository includes comparisons, limitations, and reproduction details.",
+    image: "/media/project-npu-sr.png",
+    imageAlt: "NPU-SR published test card enhanced to twice its original resolution using the Qualcomm NPU",
+    href: "https://github.com/AKMessi/npu-sr"
+  },
   {
     id: "medvlm",
     number: "01",
@@ -226,6 +323,7 @@ export const workItems: WorkItem[] = [
   },
   {
     id: "ferrite",
+    relatedArticleId: "ferrite-debugging",
     number: "07",
     title: "Ferrite",
     kind: "rust inference internals",
@@ -264,9 +362,15 @@ export const workItems: WorkItem[] = [
     image: "/media/project-heart.webp",
     href: "https://github.com/AKMessi/heart-disease-xgboost-model"
   }
-];
+].sort((a, b) => {
+  const order = ["pactrail", "npu-sr", "vex", "kivarro", "ferrite", "smartie", "medvlm", "flash", "autograd", "heart", "face-rater", "lookalike"];
+  return order.indexOf(a.id) - order.indexOf(b.id);
+}).map((item, index) => ({ ...item, number: String(index + 1).padStart(2, "0") }));
 
 export const nowEntries: NowEntry[] = [
+  { category: "Pactrail", item: "Building a Rust coding-agent harness around isolated changes, verification receipts, and explicit review." },
+  { category: "NPU-SR", item: "Putting the Snapdragon NPU to work on local image and video enhancement, with reproducible measurements." },
+  { category: "writing", item: "Explaining agent harnesses, inference internals, and model architectures on Medium." },
   { category: "learning", item: "The 10,000-hour ML problem: papers, implementations, lectures, and builds." },
   { category: "papers", item: "New research papers plus old classics. Printed when the mechanism matters." },
   { category: "videos", item: "Machine Learning With Aaryan for ML. Aaryan Kakad for self-improvement and the life around the work." },
