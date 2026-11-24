@@ -3,7 +3,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
 const title = "Aaryan Kakad";
-const description = "Aaryan Kakad builds AI agents, local inference tools, and ML systems from scratch. Explore his projects and writing on agents, Rust, and model architectures.";
+const description = "Aaryan Kakad is an independent ML researcher and builder creating Weight-Space Programming papers, AI agents, local inference tools, and open-weight models from scratch.";
 const siteUrl = "https://aaryan-kakad.github.io";
 const googleAnalyticsId = "G-E41VNBFVWM";
 
@@ -45,8 +45,25 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     "@type": "Person",
     name: "Aaryan Kakad",
     url: siteUrl,
-    sameAs: ["https://medium.com/@kakadaaryan10", "https://github.com/AKMessi", "https://x.com/aaryan_kakad", "https://www.linkedin.com/in/aaryankakad/"],
-    knowsAbout: ["machine learning", "AI agents", "computer vision", "markets", "research papers", "systems"]
+    sameAs: [
+      "https://medium.com/@kakadaaryan10",
+      "https://github.com/AKMessi",
+      "https://huggingface.co/AKMESSI",
+      "https://x.com/aaryan_kakad",
+      "https://www.linkedin.com/in/aaryankakad/"
+    ],
+    knowsAbout: [
+      "machine learning",
+      "weight-space programming",
+      "quantization",
+      "AI agents",
+      "local inference",
+      "Rust",
+      "computer vision",
+      "markets",
+      "research papers",
+      "systems"
+    ]
   };
 
   return (

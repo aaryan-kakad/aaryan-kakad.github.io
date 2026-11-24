@@ -6,7 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: "https://aaryan-kakad.github.io",
-      lastModified: new Date("2026-06-08"),
+      lastModified: new Date("2026-11-25"),
       changeFrequency: "monthly",
       priority: 1
     }

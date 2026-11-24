@@ -1,3 +1,8 @@
+export type WorkLink = {
+  href: string;
+  label: string;
+};
+
 export type WorkItem = {
   id: string;
   number: string;
@@ -8,8 +13,10 @@ export type WorkItem = {
   image: string;
   href?: string;
   linkLabel?: string;
+  links?: WorkLink[];
   imageAlt?: string;
   relatedArticleId?: string;
+  tier?: "flagship" | "earlier";
 };
 
 export type StoryBeat = {
@@ -142,6 +149,18 @@ export const storyBeats: StoryBeat[] = [
     alt: "Annotated CSA and HCA notes from the DeepSeek V4 architecture paper"
   },
   {
+    id: "independent-research",
+    label: "late 2026",
+    line: "From annotating papers to writing them.",
+    copy: "Reading papers turned into running 200+ local experiments on a 4 GB RX 6400, authoring two verified Weight-Space Programming papers, shipping fine-tuned open weights, and building studios people actually open and use.",
+    image: "/media/project-wsp.png",
+    alt: "Weight-Space Programming and 4-bit/3-bit quantization survival research overview",
+    links: [
+      { href: "https://akmessi.github.io/weight-space-programming/", label: "research site" },
+      { href: "https://github.com/AKMessi/weight-space-programming", label: "papers & code" }
+    ]
+  },
+  {
     id: "videos",
     label: "now",
     line: "I make videos to force clarity.",
@@ -176,32 +195,44 @@ export type ArticleItem = {
 
 export const articles: ArticleItem[] = [
   {
-    id: "frontier",
-    title: "pace the frontier? no.",
-    topic: "open AI / opinion",
-    date: "2026-09-22",
-    dateLabel: "22 Sep 2026",
-    label: "opinion",
-    summary: "My take on who gets to own the AI frontier, why closed labs worry about open models, and why access to personal intelligence should belong to everyone.",
-    href: "https://medium.com/@kakadaaryan10/pace-the-frontier-no-98a736112591"
+    id: "self-learn",
+    title: "how I self learn anything",
+    topic: "learning / method",
+    date: "2026-10-24",
+    dateLabel: "24 Oct 2026",
+    label: "best · start here",
+    summary: "Ingest, build, hit a wall, fill the gaps, repeat—forever. The exact self-teaching loop behind every paper, engine, and system on this site.",
+    href: "https://medium.com/@kakadaaryan10/how-to-self-learn-anything-81587b6ce7bb"
   },
   {
-    id: "deepseek",
-    title: "deepseek v4.1 flash’s alien architecture explained.",
-    topic: "model architecture",
-    date: "2026-09-10",
-    dateLabel: "10 Sep 2026",
-    summary: "A walkthrough of compressed attention, shared caches, and the different work a model does when reading versus generating. The thread running through it: memory is a central constraint for long agent runs.",
-    href: "https://medium.com/@kakadaaryan10/890-bytes-is-what-deepseek-v4-1-flash-needs-to-store-one-token-cf4a9643ae60"
+    id: "training",
+    title: "how an llm is trained from scratch",
+    topic: "ML foundations",
+    date: "2026-08-24",
+    dateLabel: "24 Aug 2026",
+    label: "co-best · foundations",
+    summary: "From cleaning data and training a tokenizer to pretraining, scaling, and fitting the run across GPUs. A tour of the training pipeline and the engineering decisions behind a language model.",
+    href: "https://medium.com/@kakadaaryan10/how-an-llm-is-trained-from-scratch-50dfd8b5337b"
   },
   {
-    id: "reasoning",
-    title: "you don’t need a bigger model. you need the same model to think longer.",
-    topic: "reasoning / inference",
-    date: "2026-09-09",
-    dateLabel: "09 Sep 2026",
-    summary: "How inference compute can improve reasoning without adding parameters. I unpack chains of thought, voting across answers, search, and the verification problems that decide whether extra thinking actually helps.",
-    href: "https://medium.com/@kakadaaryan10/you-dont-need-a-bigger-model-you-need-the-same-model-to-think-longer-17a725800134"
+    id: "wsp-research",
+    title: "Gemini Neon and I spent the last 80 hours doing research around Weight-Space Programming.",
+    topic: "original research / LLMs",
+    date: "2026-11-24",
+    dateLabel: "24 Nov 2026",
+    label: "behind WSP",
+    summary: "The story and mechanics behind 80 hours of zero-gradient Weight-Space Programming experiments—exposing the Greedy-Perturbation Illusion and making compiled weight edits survive 4-bit and 3-bit quantization.",
+    href: "https://medium.com/@kakadaaryan10/neon-and-i-spent-the-last-80-hours-exploring-some-things-in-weight-space-programming-708b1f4f8c34"
+  },
+  {
+    id: "frontier-vs-oss",
+    title: "Comparing 2025’s Frontier Models With 2026’s OSS Models. The Results Shocked Me.",
+    topic: "open models / benchmarks",
+    date: "2026-11-09",
+    dateLabel: "09 Nov 2026",
+    label: "benchmark",
+    summary: "Stacking 2025's flagship frontier models directly against 2026's open-weight models under 40B parameters—and what the gap collapsing means for local AI.",
+    href: "https://medium.com/@kakadaaryan10/i-compared-2025s-frontier-ai-with-2026-s-open-models-under-40b-params-the-results-shocked-me-4c8ccd554669"
   },
   {
     id: "harness",
@@ -214,16 +245,6 @@ export const articles: ArticleItem[] = [
     href: "https://medium.com/@kakadaaryan10/what-is-an-agentic-harness-de78b99e432b"
   },
   {
-    id: "training",
-    title: "how an llm is trained from scratch",
-    topic: "ML foundations",
-    date: "2026-08-24",
-    dateLabel: "24 Aug 2026",
-    label: "start here",
-    summary: "From cleaning data and training a tokenizer to pretraining, scaling, and fitting the run across GPUs. A tour of the training pipeline and the engineering decisions behind a language model.",
-    href: "https://medium.com/@kakadaaryan10/how-an-llm-is-trained-from-scratch-50dfd8b5337b"
-  },
-  {
     id: "ferrite-debugging",
     title: "I Built Qwen 3.5 From Scratch in Rust. It Silently Broke.",
     topic: "Rust / build notes",
@@ -232,13 +253,83 @@ export const articles: ArticleItem[] = [
     label: "inside Ferrite",
     summary: "Building a hybrid LLM inference engine exposed bugs that compiled cleanly but ruined the numbers. Notes from tracing near-zero logits, checking intermediate values, and learning why a running pipeline is only the beginning.",
     href: "https://medium.com/@kakadaaryan10/i-built-qwen-3-5-from-scratch-in-rust-it-silently-broke-6772ebf6c5d7"
+  },
+  {
+    id: "agent-communication",
+    title: "can two AI agents communicate without using a language?",
+    topic: "agents / theory",
+    date: "2026-10-16",
+    dateLabel: "16 Oct 2026",
+    summary: "Humans have no choice but to compress thought through natural language. Why do we force AI agents through the same bottleneck when they can share latent state directly?",
+    href: "https://medium.com/@kakadaaryan10/can-two-ai-agents-communicate-without-using-a-language-3eb5dd0fee1d"
+  },
+  {
+    id: "deepseek",
+    title: "deepseek v4.1 flash’s alien architecture explained.",
+    topic: "model architecture",
+    date: "2026-09-10",
+    dateLabel: "10 Sep 2026",
+    summary: "A walkthrough of compressed attention, shared caches, and the different work a model does when reading versus generating. The thread running through it: memory is a central constraint for long agent runs.",
+    href: "https://medium.com/@kakadaaryan10/890-bytes-is-what-deepseek-v4-1-flash-needs-to-store-one-token-cf4a9643ae60"
   }
 ];
 
-export const workItems: WorkItem[] = [
+const allWorkItems: WorkItem[] = [
+  {
+    id: "wsp",
+    number: "01",
+    title: "Weight-Space Programming",
+    kind: "original ML research · 2 papers",
+    sentence: "Zero-gradient weight compilers that survive 4-bit and 3-bit quantization.",
+    detail: "Two programmatically verified independent research papers evaluated across 3 reasoning LLM architectures (Qwen3-0.6B, Qwen3.5-0.8B hybrid DeltaNet, DeepSeek-R1-Distill-Qwen-1.5B) on a single 4 GB RX 6400 (206 runs, 18,513 responses, 25M+ tokens, 0 errors). Exposes the Greedy-Perturbation Illusion, introduces oblique_res & BA-WSC (zero-shot ARC-100 +15 pp, p = 0.0003), and proves hardware-aligned block packing cuts quantization collateral 4,514×–16,685× on real llama-quantize.",
+    image: "/media/project-wsp.png",
+    imageAlt: "Weight-Space Programming and 4-bit/3-bit quantization survival infographic showing verified results across 3 LLM architectures",
+    href: "https://akmessi.github.io/weight-space-programming/",
+    linkLabel: "interactive site",
+    links: [
+      { href: "https://akmessi.github.io/weight-space-programming/", label: "research site" },
+      { href: "https://github.com/AKMessi/weight-space-programming", label: "open repo" },
+      { href: "https://github.com/AKMessi/weight-space-programming/blob/main/papers/Paper1_Greedy_Perturbation_Illusion_and_Zero_Gradient_WSP_Kakad2026.pdf", label: "paper 1 pdf" },
+      { href: "https://github.com/AKMessi/weight-space-programming/blob/main/papers/Paper2_Quantization_Cliff_and_BA_WSC_Kakad2026.pdf", label: "paper 2 pdf" }
+    ],
+    relatedArticleId: "wsp-research",
+    tier: "flagship"
+  },
+  {
+    id: "vex",
+    number: "02",
+    title: "Vex",
+    kind: "AI video studio · 100+ stars",
+    sentence: "AI video generation and editing from your browser or terminal.",
+    detail: "Source-available AI video studio (100+ GitHub stars) where plain English drives real video production. Describe a video from scratch or import footage, run Vex Studio in the browser (vex web --open) or natively in the terminal, and assemble narrated animated films with Remotion, HyperFrames, FFmpeg, layer controls, and resumable production delivery.",
+    image: "/media/project-vex-studio.png",
+    imageAlt: "Vex Studio browser interface showing the Where Light Meets animated optics explainer with prompt controls and timeline",
+    href: "https://github.com/AKMessi/vex",
+    links: [
+      { href: "https://github.com/AKMessi/vex", label: "open repo (100+ ★)" }
+    ],
+    tier: "flagship"
+  },
+  {
+    id: "architecton",
+    number: "03",
+    title: "ARCHITECTON",
+    kind: "interactive LLM studio",
+    sentence: "Drag and drop 49 real LLM blocks and watch VRAM, KV-cache, and PyTorch react live.",
+    detail: "A 100% client-side LLM architecture workbench grounded in all 120 open-weight models from Sebastian Raschka's LLM Architecture Gallery. Combine MLA, GQA, Gated DeltaNet, Mamba-2, Sparse & Latent MoE, QK-Norm, mHC Hyper-Connections, MTP heads, and 8 tokenizers across 7 decoder stages to feel real hardware-fit physics, live SVG schematics, and instant PyTorch export.",
+    image: "/media/project-architecton.png",
+    imageAlt: "ARCHITECTON interactive LLM architecture studio overview card showing 120 models and 49 modular blocks across 7 stages",
+    href: "https://llmarch.online",
+    linkLabel: "launch studio",
+    links: [
+      { href: "https://llmarch.online", label: "launch studio" },
+      { href: "https://github.com/AKMessi/llm-arch", label: "open repo" }
+    ],
+    tier: "flagship"
+  },
   {
     id: "pactrail",
-    number: "01",
+    number: "04",
     title: "Pactrail",
     kind: "Rust coding-agent harness",
     sentence: "Every change carries its evidence.",
@@ -246,136 +337,175 @@ export const workItems: WorkItem[] = [
     image: "/media/project-pactrail.svg",
     imageAlt: "Pactrail execution diagram: task contract, isolated edits, verification receipt, human review, and explicit apply",
     href: "https://github.com/AKMessi/pactrail",
-    relatedArticleId: "harness"
+    links: [
+      { href: "https://github.com/AKMessi/pactrail", label: "open repo" },
+      { href: "https://github.com/AKMessi/pactrail/releases/latest", label: "latest release" }
+    ],
+    relatedArticleId: "harness",
+    tier: "flagship"
+  },
+  {
+    id: "ffcraft",
+    number: "05",
+    title: "FFCraft Studio",
+    kind: "fine-tuned 1.5B + desktop app",
+    sentence: "Plain-English FFmpeg powered by my own fine-tuned 1.5B local model.",
+    detail: "Zero-dependency local desktop app powered by FFCraft-1.5B (Apache-2.0, trained on 6,000 execution-verified FFmpeg examples). Auto-inspects local media with ffprobe, asks brief clarifying questions when prompts are vague, and executes 1-click commands locally. On 60 held-out real ffmpeg + ffprobe tasks, jumps from 43.3% (base Qwen2.5-Coder-1.5B) to 96.7% pass rate (+53.4 pp) with 100% smart-ask and 100% lint-clean commands.",
+    image: "/media/project-ffcraft.png",
+    imageAlt: "FFCraft-1.5B v2 vs base Qwen2.5-Coder-1.5B benchmark showing 96.7% real ffmpeg execution pass rate",
+    href: "https://github.com/AKMessi/ffcraft-studio",
+    links: [
+      { href: "https://github.com/AKMessi/ffcraft-studio", label: "open repo" },
+      { href: "https://huggingface.co/AKMESSI/FFCraft-1.5B-GGUF", label: "FFCraft-1.5B on HF" }
+    ],
+    tier: "flagship"
+  },
+  {
+    id: "openview",
+    number: "06",
+    title: "OpenView",
+    kind: "Rust/WASM trading workbench",
+    sentence: "Clean-room open-source TradingView alternative across four global markets.",
+    detail: "MIT-licensed web charting, scripting, orderflow, backtesting, alerting, and screening workbench engineered from scratch for Crypto, Forex/Metals, US Equities, and Indian NSE/BSE/MCX. Pairs a React 19 two-canvas-per-tile UI (53 vector drawing tools) and Fastify local bridge with a shared Rust-to-WebAssembly engine (openview-wasm): 18+ TA indicators, clean-room Pine v5/v6 compiler, and deterministic gap-open-realistic backtesting.",
+    image: "/media/project-openview.svg",
+    imageAlt: "OpenView architecture diagram: React 19 multi-chart UI, Fastify bridge, and Rust to WebAssembly TA and Pine compiler engine",
+    href: "https://github.com/AKMessi/open-view",
+    tier: "flagship"
   },
   {
     id: "npu-sr",
-    number: "02",
+    number: "07",
     title: "NPU-SR",
     kind: "local hardware / vision",
     sentence: "Give the laptop’s NPU real work: enhance images and video locally.",
     detail: "2× super-resolution and luminance denoising on Qualcomm Hexagon NPUs. The published Snapdragon X Plus trial reports 52.74 FPS median processing throughput for 540p to 1080p video across three runs, with strict NPU execution and hardware codecs. Results describe one tested laptop and declared settings; the repository includes comparisons, limitations, and reproduction details.",
     image: "/media/project-npu-sr.png",
     imageAlt: "NPU-SR published test card enhanced to twice its original resolution using the Qualcomm NPU",
-    href: "https://github.com/AKMessi/npu-sr"
+    href: "https://github.com/AKMessi/npu-sr",
+    tier: "flagship"
+  },
+  {
+    id: "kivarro",
+    number: "08",
+    title: "Kivarro",
+    kind: "local inference workstation",
+    sentence: "An all-in-one desktop tool for running local models under your hand.",
+    detail: "Model registry, runtime profiles, hardware fit, chat, local API, RAG tests, benchmarks, logs. I wanted local inference to feel like a real workstation instead of a pile of scripts.",
+    image: "/media/project-kivarro.png",
+    href: "https://github.com/AKMessi/kivarro",
+    tier: "flagship"
+  },
+  {
+    id: "ferrite",
+    relatedArticleId: "ferrite-debugging",
+    number: "09",
+    title: "Ferrite",
+    kind: "rust inference internals",
+    sentence: "A tiny inference engine built to learn Rust and how LLMs work at the roots.",
+    detail: "GGUF parsing, tensors, quantization, tokenizer, sampler, KV cache, and forward passes. Not a product. A way to stop treating inference as a black box.",
+    image: "/media/project-ferrite.png",
+    href: "https://github.com/AKMessi/ferrite",
+    tier: "flagship"
+  },
+  {
+    id: "smartie",
+    number: "10",
+    title: "Smartie",
+    kind: "screen recorder",
+    sentence: "A recorder that understands demos are usually badly directed.",
+    detail: "Cursor focus, zoom, chapters, keyboard overlay, motion cues. The screen stops looking dead.",
+    image: "/media/project-smartie.webp",
+    href: "https://github.com/AKMessi/smartie",
+    tier: "flagship"
   },
   {
     id: "medvlm",
-    number: "01",
+    number: "11",
     title: "MedVLM",
     kind: "medical vision",
     sentence: "A hybrid Vision Transformer that reads chest X-rays.",
     detail: "Trained on roughly 3,400 X-rays on a free-tier Kaggle GPU. No lab, no budget, no drama. Just the architecture surviving contact with data.",
     image: "/media/project-medvlm.webp",
-    href: "https://github.com/AKMessi/medvlm"
+    href: "https://github.com/AKMessi/medvlm",
+    tier: "flagship"
+  },
+  {
+    id: "flash",
+    number: "12",
+    title: "FlashAttention",
+    kind: "paper implementation",
+    sentence: "The paper clicked when memory became the villain.",
+    detail: "Tile the work. Keep tiny statistics. Recompute what is cheaper than storing. That is the whole idea.",
+    image: "/media/project-flash.webp",
+    href: "https://github.com/AKMessi/flash-attn-from-scratch",
+    tier: "flagship"
+  },
+  {
+    id: "autograd",
+    number: "13",
+    title: "tiny-autograd-rs",
+    kind: "rust autodiff",
+    sentence: "Backprop, small enough that the ugly parts cannot hide.",
+    detail: "Ownership, graph edges, gradients, and the awkward Rust parts are all visible. That was the point.",
+    image: "/media/project-autograd.webp",
+    href: "https://github.com/AKMessi/tiny-autograd-rs",
+    tier: "earlier"
+  },
+  {
+    id: "heart",
+    number: "14",
+    title: "Heart Disease Risk XGBoost Model",
+    kind: "clinical risk",
+    sentence: "A model that got better after the leakage stopped flattering it.",
+    detail: "Risk modeling with curated datasets, SHAP, ECG integration, and metrics that make weak spots obvious.",
+    image: "/media/project-heart.webp",
+    href: "https://github.com/AKMessi/heart-disease-xgboost-model",
+    tier: "earlier"
   },
   {
     id: "face-rater",
-    number: "02",
+    number: "15",
     title: "ResNet18 Face Rater",
     kind: "first real ML build",
     sentence: "Fine-tuned on 5,500 images. The first model that made the switch flip.",
     detail: "Not the most important model in the world. Important because it proved the loop worked: collect data, train, break, fix, understand.",
     image: "/media/resnet-face-rating.png",
     href: "https://github.com/AKMessi/facial-rating-using-cnn",
-    linkLabel: "open repo"
+    linkLabel: "open repo",
+    tier: "earlier"
   },
   {
     id: "lookalike",
-    number: "03",
+    number: "16",
     title: "Celebrity Lookalike Network",
     kind: "siamese network",
     sentence: "A similarity model for finding which celebrity a face resembles.",
     detail: "A small project, but a clean lesson in embeddings, distance, and why representation matters more than the final label.",
     image: "/media/celebrity-doppelganger-poster.webp",
     href: "https://akmessi-celebrity-doppelganger.hf.space/",
-    linkLabel: "try demo"
-  },
-  {
-    id: "kivarro",
-    number: "04",
-    title: "Kivarro",
-    kind: "local inference workstation",
-    sentence: "An all-in-one desktop tool for running local models under your hand.",
-    detail: "Model registry, runtime profiles, hardware fit, chat, local API, RAG tests, benchmarks, logs. I wanted local inference to feel like a real workstation instead of a pile of scripts.",
-    image: "/media/project-kivarro.png",
-    href: "https://github.com/AKMessi/kivarro"
-  },
-  {
-    id: "vex",
-    number: "05",
-    title: "Vex",
-    kind: "terminal video agent",
-    sentence: "A video tool where language can touch the timeline.",
-    detail: "Commands, memory, cuts, and source context. Not a chat box next to a video. A real interface for changing the thing itself.",
-    image: "/media/project-vex.webp",
-    href: "https://github.com/AKMessi/vex"
-  },
-  {
-    id: "smartie",
-    number: "06",
-    title: "Smartie",
-    kind: "screen recorder",
-    sentence: "A recorder that understands demos are usually badly directed.",
-    detail: "Cursor focus, zoom, chapters, keyboard overlay, motion cues. The screen stops looking dead.",
-    image: "/media/project-smartie.webp",
-    href: "https://github.com/AKMessi/smartie"
-  },
-  {
-    id: "ferrite",
-    relatedArticleId: "ferrite-debugging",
-    number: "07",
-    title: "Ferrite",
-    kind: "rust inference internals",
-    sentence: "A tiny inference engine built to learn Rust and how LLMs work at the roots.",
-    detail: "GGUF parsing, tensors, quantization, tokenizer, sampler, KV cache, and forward passes. Not a product. A way to stop treating inference as a black box.",
-    image: "/media/project-ferrite.png",
-    href: "https://github.com/AKMessi/ferrite"
-  },
-  {
-    id: "flash",
-    number: "08",
-    title: "FlashAttention",
-    kind: "paper implementation",
-    sentence: "The paper clicked when memory became the villain.",
-    detail: "Tile the work. Keep tiny statistics. Recompute what is cheaper than storing. That is the whole idea.",
-    image: "/media/project-flash.webp",
-    href: "https://github.com/AKMessi/flash-attn-from-scratch"
-  },
-  {
-    id: "autograd",
-    number: "09",
-    title: "tiny-autograd-rs",
-    kind: "rust autodiff",
-    sentence: "Backprop, small enough that the ugly parts cannot hide.",
-    detail: "Ownership, graph edges, gradients, and the awkward Rust parts are all visible. That was the point.",
-    image: "/media/project-autograd.webp",
-    href: "https://github.com/AKMessi/tiny-autograd-rs"
-  },
-  {
-    id: "heart",
-    number: "10",
-    title: "Heart Disease Risk XGBoost Model",
-    kind: "clinical risk",
-    sentence: "A model that got better after the leakage stopped flattering it.",
-    detail: "Risk modeling with curated datasets, SHAP, ECG integration, and metrics that make weak spots obvious.",
-    image: "/media/project-heart.webp",
-    href: "https://github.com/AKMessi/heart-disease-xgboost-model"
+    linkLabel: "try demo",
+    tier: "earlier"
   }
-].sort((a, b) => {
-  const order = ["pactrail", "npu-sr", "vex", "kivarro", "ferrite", "smartie", "medvlm", "flash", "autograd", "heart", "face-rater", "lookalike"];
-  return order.indexOf(a.id) - order.indexOf(b.id);
-}).map((item, index) => ({ ...item, number: String(index + 1).padStart(2, "0") }));
+];
+
+export const workItems: WorkItem[] = allWorkItems
+  .filter((item) => item.tier !== "earlier")
+  .map((item, index) => ({ ...item, number: String(index + 1).padStart(2, "0") }));
+
+export const earlierWorkItems: WorkItem[] = allWorkItems
+  .filter((item) => item.tier === "earlier")
+  .map((item, index) => ({ ...item, number: String(workItems.length + index + 1).padStart(2, "0") }));
 
 export const nowEntries: NowEntry[] = [
-  { category: "Pactrail", item: "Building a Rust coding-agent harness around isolated changes, verification receipts, and explicit review." },
-  { category: "NPU-SR", item: "Putting the Snapdragon NPU to work on local image and video enhancement, with reproducible measurements." },
-  { category: "writing", item: "Explaining agent harnesses, inference internals, and model architectures on Medium." },
-  { category: "learning", item: "The 10,000-hour ML problem: papers, implementations, lectures, and builds." },
-  { category: "papers", item: "New research papers plus old classics. Printed when the mechanism matters." },
+  { category: "research", item: "Weight-Space Programming & 4-bit/3-bit quantization survival in local reasoning LLMs—two verified papers and open code." },
+  { category: "ARCHITECTON", item: "Turning modern LLM architecture trade-offs into a live drag-and-drop workbench at llmarch.online." },
+  { category: "FFCraft", item: "Post-training small task-specific local models like FFCraft-1.5B and wrapping them into zero-bloat desktop tools." },
+  { category: "Vex Studio", item: "Scaling Vex (100+ stars) from a terminal video agent into a full browser + CLI AI video generation and editing studio." },
+  { category: "OpenView", item: "Building a clean-room open-source TradingView alternative with a Rust/WASM indicator, Pine compiler, and backtest core." },
+  { category: "writing", item: "Publishing deep dives on self-learning, LLM training, weight-space research, and open-weight benchmarks on Medium." },
+  { category: "learning", item: "The 10,000-hour ML problem: papers, implementations, experiments, and builds." },
   { category: "videos", item: "Machine Learning With Aaryan for ML. Aaryan Kakad for self-improvement and the life around the work." },
   { category: "mornings", item: "5 AM to 9 or 10 AM. Deep work before the day gets loud." },
-  { category: "building", item: "models, agents, video tools, and systems where the hidden mechanism matters." },
   { category: "markets", item: "Stocks, crypto, commodities, and the habit of thinking in incentives." },
   { category: "training", item: "Gym every day. Code and weights both expose fake effort fast." },
   { category: "direction", item: "Use ML as leverage. Build companies that solve real problems at scale." }
@@ -678,6 +808,69 @@ export const galleryItems: GalleryItem[] = [
     poster: "/media/loop-annotations-poster.webp"
   },
   {
+    src: "/media/project-wsp.png",
+    kind: "image",
+    title: "Weight-Space Programming",
+    caption: "2 papers, 0 gradients",
+    meta: "project proof",
+    story: "206 local runs across 3 reasoning LLM architectures on a single 4 GB RX 6400—zero-gradient weight compilation that survives 4-bit and 3-bit GGUF quantization.",
+    alt: "Weight-Space Programming and quantization survival research infographic"
+  },
+  {
+    src: "/media/project-vex-studio.png",
+    kind: "image",
+    title: "Vex Studio",
+    caption: "100+ stars, browser + CLI",
+    meta: "project proof",
+    story: "Vex grew from a terminal video agent into a full AI video generation and editing studio.",
+    alt: "Vex Studio browser interface"
+  },
+  {
+    src: "/media/project-architecton.png",
+    kind: "image",
+    title: "ARCHITECTON",
+    caption: "49 LLM blocks, live physics",
+    meta: "project proof",
+    story: "Interactive drag-and-drop LLM architecture studio grounded in 120 real open-weight models.",
+    alt: "ARCHITECTON interactive LLM architecture playground overview"
+  },
+  {
+    src: "/media/project-ffcraft.png",
+    kind: "image",
+    title: "FFCraft-1.5B Benchmark",
+    caption: "43.3% → 96.7% pass rate",
+    meta: "project proof",
+    story: "Fine-tuned a 1.5B local model on 6,000 execution-verified FFmpeg examples and wrapped it into a zero-bloat desktop app.",
+    alt: "FFCraft-1.5B v2 vs base model FFmpeg execution benchmark chart"
+  },
+  {
+    src: "/media/project-openview.svg",
+    kind: "image",
+    title: "OpenView",
+    caption: "Rust/WASM market workbench",
+    meta: "project proof",
+    story: "Clean-room open-source TradingView alternative spanning Crypto, Forex/Metals, US Equities, and Indian NSE/BSE/MCX.",
+    alt: "OpenView architecture diagram"
+  },
+  {
+    src: "/media/project-pactrail.svg",
+    kind: "image",
+    title: "Pactrail",
+    caption: "evidence-backed coding agent",
+    meta: "project proof",
+    story: "Verification-native Rust coding-agent harness: task contracts, isolated edits, evidence receipts, and explicit apply.",
+    alt: "Pactrail execution flow diagram"
+  },
+  {
+    src: "/media/project-npu-sr.png",
+    kind: "image",
+    title: "NPU-SR",
+    caption: "52.74 FPS on Hexagon NPU",
+    meta: "project proof",
+    story: "Local 2× super-resolution and luminance denoising running strictly on a Snapdragon X Plus NPU.",
+    alt: "NPU-SR 2x super-resolution test card"
+  },
+  {
     src: "/media/project-medvlm.webp",
     kind: "image",
     title: "MedVLM",
@@ -854,7 +1047,8 @@ export const galleryItems: GalleryItem[] = [
 export const trailImages = [
   "/media/hero-formal.webp",
   "/media/hoodie-work.webp",
+  "/media/project-architecton.png",
   "/media/flash-point-closeup.webp",
   "/media/deadlift.webp",
-  "/media/project-vex.webp"
+  "/media/project-vex-studio.png"
 ];

@@ -5,7 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { articles, galleryItems, nowEntries, storyBeats, trailImages, workItems, type GalleryItem, type WorkItem } from "@/data/site";
+import { articles, earlierWorkItems, galleryItems, nowEntries, storyBeats, trailImages, workItems, type GalleryItem, type WorkItem } from "@/data/site";
 
 const navItems = ["story", "made", "writing", "moments", "now"];
 const konami = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
@@ -199,6 +199,7 @@ export function BrightBossSite() {
   const [voiceMuted, setVoiceMuted] = useState(false);
   const [egg, setEgg] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showEarlierWork, setShowEarlierWork] = useState(false);
 
   const lenisRef = useRef<Lenis | null>(null);
   const heroRef = useRef<HTMLElement | null>(null);
@@ -705,7 +706,7 @@ export function BrightBossSite() {
                 <span>{splitChars("KAKAD")}</span>
               </h1>
               <p className="hero-subline">
-                I build AI agents, local inference tools, and ML systems from scratch. I write about the mechanisms, bugs, and lessons along the way.
+                I do independent ML research and build AI agents, local inference tools, and open-weight models from scratch. I write about the mechanisms, bugs, and lessons along the way.
               </p>
               <div className="hero-actions">
                 <a ref={openStoryRef} href="#made" onClick={scrollTo("made")} className="magnetic primary-action" data-cursor="link">
@@ -719,6 +720,7 @@ export function BrightBossSite() {
                 <span>13: first project</span>
                 <span>16: two failed business attempts</span>
                 <span>18: ML from scratch</span>
+                <span>19: independent ML research &amp; open tools</span>
               </div>
             </div>
             <a href="#story" onClick={scrollTo("story")} className="scroll-cue" data-cursor="link" aria-label="Scroll to story">
@@ -827,6 +829,43 @@ export function BrightBossSite() {
                 </button>
               ))}
             </div>
+            {earlierWorkItems.length ? (
+              <div className="earlier-work">
+                <button
+                  type="button"
+                  className="earlier-work-toggle"
+                  onClick={() => setShowEarlierWork((open) => !open)}
+                  aria-expanded={showEarlierWork}
+                >
+                  <span>{showEarlierWork ? "hide earlier builds" : `earlier builds (${earlierWorkItems.length})`}</span>
+                  <span aria-hidden="true">{showEarlierWork ? "−" : "+"}</span>
+                </button>
+                {showEarlierWork ? (
+                  <div className="work-list earlier-work-list" onPointerMove={moveWorkPreview}>
+                    {earlierWorkItems.map((item) => (
+                      <button
+                        type="button"
+                        className="work-row"
+                        onMouseEnter={() => setHoverWork(item)}
+                        onMouseLeave={leaveWork}
+                        onFocus={() => setHoverWork(item)}
+                        onBlur={leaveWork}
+                        onClick={() => setDetail(item)}
+                        key={item.id}
+                      >
+                        <span className="row-line" />
+                        <span className="row-part work-meta">
+                          <span>{item.number}</span>
+                          <small>{item.kind}</small>
+                        </span>
+                        <strong className="row-part">{item.title}</strong>
+                        <em className="row-part">{item.sentence}</em>
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            ) : null}
             <div ref={workPreviewRef} className="work-preview" aria-hidden="true">
               {hoverWork ? <Image src={hoverWork.image} alt="" fill sizes="320px" /> : null}
             </div>
@@ -915,7 +954,7 @@ export function BrightBossSite() {
 
           <section id="now" className="now-section">
             <div className="section-head">
-              <p className="eyebrow fade-line">now / updated <time dateTime="2026-10-06">06 Oct 2026</time></p>
+              <p className="eyebrow fade-line">now / updated <time dateTime="2026-11-25">25 Nov 2026</time></p>
               <h2 className="word-reveal" aria-label="Current loop.">
                 {splitWords("Current loop.")}
               </h2>
@@ -939,6 +978,7 @@ export function BrightBossSite() {
             <div className="closing-links fade-line">
               <a ref={helloRef} href="mailto:aaryankakad1@gmail.com" className="magnetic primary-action">Email me</a>
               <a href="https://github.com/AKMessi" target="_blank" rel="noreferrer">GitHub</a>
+              <a href="https://huggingface.co/AKMESSI" target="_blank" rel="noreferrer">Hugging Face</a>
               <a href="https://medium.com/@kakadaaryan10" target="_blank" rel="noopener noreferrer">Medium</a>
               <a href="https://x.com/aaryan_kakad" target="_blank" rel="noreferrer">X</a>
               <a href="https://youtube.com/@MachineLearningWithAaryan" target="_blank" rel="noreferrer">ML YouTube</a>
@@ -973,7 +1013,24 @@ export function BrightBossSite() {
                   <a href={article.href} target="_blank" rel="noopener noreferrer">{article.title} <span aria-hidden="true">↗</span></a>
                 </div>
               )) : null}
-              {detail.href ? <a href={detail.href} target="_blank" rel="noreferrer">{detail.linkLabel ?? "open repo"}</a> : null}
+              {(() => {
+                const detailLinks = detail.links ?? (detail.href ? [{ href: detail.href, label: detail.linkLabel ?? "open repo" }] : []);
+                return detailLinks.length ? (
+                  <div className="detail-links">
+                    {detailLinks.map((link, linkIndex) => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={linkIndex === 0 && detailLinks.length > 1 ? "primary-action" : undefined}
+                      >
+                        {link.label}
+                      </a>
+                    ))}
+                  </div>
+                ) : null;
+              })()}
             </div>
           </article>
         </div>

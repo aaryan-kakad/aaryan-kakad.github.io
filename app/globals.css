@@ -1222,6 +1222,57 @@ body[data-cursor="drag"] #cursor-ring {
   margin-top: 16px;
 }
 
+.detail-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.detail-links a {
+  margin-top: 0;
+}
+
+.detail-links a.primary-action {
+  background: var(--color-accent);
+  color: var(--color-bg-secondary);
+}
+
+.earlier-work {
+  margin-top: 24px;
+}
+
+.earlier-work-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid var(--color-text);
+  border-radius: var(--radius);
+  background: var(--color-bg-secondary);
+  color: var(--color-text);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  box-shadow: 3px 3px 0 rgba(17, 16, 39, 0.18);
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.earlier-work-toggle:hover {
+  background: var(--color-surface);
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 rgba(17, 16, 39, 0.22);
+}
+
+.earlier-work-list {
+  margin-top: 18px;
+}
+
+.earlier-work-list .row-line {
+  transform: scaleX(1);
+}
+
 .close-button,
 .light-nav {
   position: absolute;
@@ -1678,7 +1729,8 @@ body[data-cursor="drag"] #cursor-ring {
 /* Writing follows the site's paper, ink, and signal-color vocabulary. */
 .writing-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
 .writing-card { display: flex; flex-direction: column; min-width: 0; border: 1px solid var(--color-text); border-radius: var(--radius); background: var(--color-bg-secondary); box-shadow: 4px 4px 0 var(--color-text); overflow: hidden; }
-.writing-card:first-child { background: var(--color-surface); }
+.writing-card:first-child,
+.writing-card:nth-child(2) { background: var(--color-surface); }
 .writing-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; padding: 16px 24px; border-bottom: 1px solid var(--color-line); color: var(--color-text-muted); font-size: 0.72rem; }
 .writing-meta time { white-space: nowrap; }
 .writing-card-body { position: relative; flex: 1; padding: 30px 24px; }
