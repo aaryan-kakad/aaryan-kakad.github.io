@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">LFM2.5-230M Fable-5 — tiny coding-agent fine-tune</title>
+  <desc id="desc">Evaluation card for AKMESSI/lfm2.5-230m-fable-5 showing PEFT LoRA fine-tuning of LiquidAI/LFM2.5-230M on Fable-5 coding-agent traces and local llama.cpp benchmark results across RepoBench-C-lite, BFCL-lite, CodeXGLUE, and CRUXEval-lite.</desc>
+  <rect width="1200" height="800" fill="#fff7c8"/>
+  <g fill="none" stroke="#111027" stroke-opacity=".08"><path d="M0 200H1200M0 400H1200M0 600H1200M200 0V800M400 0V800M600 0V800M800 0V800M1000 0V800"/></g>
+  <g font-family="monospace" fill="#111027">
+    <text x="72" y="100" font-size="20" letter-spacing="4">HUGGING FACE / TINY CODING-AGENT FINE-TUNE</text>
+    <text x="68" y="202" font-size="78">LFM2.5-230M Fable-5</text>
+    <text x="72" y="258" font-size="25">LoRA fine-tune of a 230M model on coding-agent traces, shipped in GGUF.</text>
+    <rect x="72" y="324" width="1056" height="346" rx="8" fill="#111027"/>
+    <g fill="#fff7c8" font-size="20">
+      <text x="112" y="376" fill="#8dff7a">LOCAL LLAMA.CPP EVALS  (F16 VS BASE LFM2.5-230M BF16)</text>
+      <text x="112" y="434">01  RepoBench-C-lite (300)   Exact 10.33% -&gt; 14.67%  (+4.33 pp)</text>
+      <text x="112" y="474">02  RepoBench-C-lite (300)   Prefix 10.67% -&gt; 15.33% (+4.67 pp)</text>
+      <text x="112" y="514">03  RepoBench-C-lite (300)   Edit Sim 46.85% -&gt; 50.17% (+3.32)</text>
+      <text x="112" y="554">04  BFCL-lite Simple (400)   98.25% parse-valid JSON preserved</text>
+      <text x="112" y="594" fill="#ffef63">05  Honest controls          CodeXGLUE neutral · CRUXEval mismatch</text>
+      <text x="112" y="636" fill="#8dff7a">RELEASE: F16 · Q8_0 · Q4_K_M GGUF  |  LORA R=32 ALPHA=64  |  23 LIKES</text>
+    </g>
+    <text x="72" y="734" font-size="19">LIQUIDAI/LFM2.5-230M  /  GLINT-RESEARCH FABLE-5 TRACES  /  COLAB T4</text>
+  </g>
+</svg>

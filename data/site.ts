@@ -361,6 +361,22 @@ const allWorkItems: WorkItem[] = [
     tier: "flagship"
   },
   {
+    id: "lfm25-fable5",
+    number: "06",
+    title: "LFM2.5-230M Fable-5",
+    kind: "230M coding-agent fine-tune · 23 ♥",
+    sentence: "LoRA fine-tune of a 230M model on coding-agent traces, benchmarked honestly in GGUF.",
+    detail: "PEFT LoRA SFT (r=32, α=64, 4096 context) of LiquidAI/LFM2.5-230M on Glint-Research/Fable-5-traces trained on a Colab T4 and released in F16, Q8_0, and Q4_K_M GGUF (23 Hugging Face likes). Local llama.cpp evaluations against the base model show +4.33 pp Exact Match (10.33% → 14.67%), +4.67 pp Prefix Match (10.67% → 15.33%), and +3.32 Edit Similarity on RepoBench-C-lite Python while preserving 98.25% JSON validity on BFCL-lite—and transparently report neutral CodeXGLUE and CRUXEval-lite trade-offs.",
+    image: "/media/project-lfm25-fable5.svg",
+    imageAlt: "LFM2.5-230M Fable-5 local benchmark card showing RepoBench-C-lite gains and honest evaluation controls",
+    href: "https://huggingface.co/AKMESSI/lfm2.5-230m-fable-5",
+    links: [
+      { href: "https://huggingface.co/AKMESSI/lfm2.5-230m-fable-5", label: "model card (23 ♥)" },
+      { href: "https://huggingface.co/AKMESSI", label: "all HF releases" }
+    ],
+    tier: "flagship"
+  },
+  {
     id: "openview",
     number: "06",
     title: "OpenView",
@@ -499,7 +515,7 @@ export const earlierWorkItems: WorkItem[] = allWorkItems
 export const nowEntries: NowEntry[] = [
   { category: "research", item: "Weight-Space Programming & 4-bit/3-bit quantization survival in local reasoning LLMs—two verified papers and open code." },
   { category: "ARCHITECTON", item: "Turning modern LLM architecture trade-offs into a live drag-and-drop workbench at llmarch.online." },
-  { category: "FFCraft", item: "Post-training small task-specific local models like FFCraft-1.5B and wrapping them into zero-bloat desktop tools." },
+  { category: "open weights", item: "Post-training small local models like FFCraft-1.5B and LFM2.5-230M Fable-5, with 1.8k+ GGUF downloads across my Hugging Face releases." },
   { category: "Vex Studio", item: "Scaling Vex (100+ stars) from a terminal video agent into a full browser + CLI AI video generation and editing studio." },
   { category: "OpenView", item: "Building a clean-room open-source TradingView alternative with a Rust/WASM indicator, Pine compiler, and backtest core." },
   { category: "writing", item: "Publishing deep dives on self-learning, LLM training, weight-space research, and open-weight benchmarks on Medium." },
@@ -842,6 +858,15 @@ export const galleryItems: GalleryItem[] = [
     meta: "project proof",
     story: "Fine-tuned a 1.5B local model on 6,000 execution-verified FFmpeg examples and wrapped it into a zero-bloat desktop app.",
     alt: "FFCraft-1.5B v2 vs base model FFmpeg execution benchmark chart"
+  },
+  {
+    src: "/media/project-lfm25-fable5.svg",
+    kind: "image",
+    title: "LFM2.5-230M Fable-5",
+    caption: "230M fine-tune, 23 HF likes",
+    meta: "project proof",
+    story: "LoRA fine-tune of LiquidAI/LFM2.5-230M on Fable-5 coding-agent traces, shipped in GGUF with transparent 4-suite local benchmarks.",
+    alt: "LFM2.5-230M Fable-5 evaluation card"
   },
   {
     src: "/media/project-openview.svg",

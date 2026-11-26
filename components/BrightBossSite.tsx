@@ -954,7 +954,7 @@ export function BrightBossSite() {
 
           <section id="now" className="now-section">
             <div className="section-head">
-              <p className="eyebrow fade-line">now / updated <time dateTime="2026-11-25">25 Nov 2026</time></p>
+              <p className="eyebrow fade-line">now / updated <time dateTime="2026-11-27">27 Nov 2026</time></p>
               <h2 className="word-reveal" aria-label="Current loop.">
                 {splitWords("Current loop.")}
               </h2>
